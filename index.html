@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Info - Informações de produtos ao seu alcance</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Acesse informações detalhadas de produtos através de QR codes. Economize tempo e tenha todas as informações na palma da sua mão.">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-qrcode logo-icon"></i>
+                <h1>QR<span>Info</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#solucao"><i class="fas fa-lightbulb"></i> Solução</a></li>
+                    <li><a href="#beneficios"><i class="fas fa-star"></i> Benefícios</a></li>
+                    <li><a href="#como-funciona"><i class="fas fa-cogs"></i> Como Funciona</a></li>
+                    <li><a href="#casos"><i class="fas fa-briefcase"></i> Casos de Uso</a></li>
+                    <li><a href="#qr-tools"><i class="fas fa-qrcode"></i> Ferramentas QR</a></li>
+                    <li><a href="selecao_cadastro.html" class="btn-cadastro"><i class="fas fa-user-plus"></i> Cadastrar</a></li>
+                    <li><a href="#contato" class="btn-contato"><i class="fas fa-envelope"></i> Contato</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-rocket"></i>
+                    <span>Revolucione sua loja</span>
+                </div>
+                <h2>Informações de produtos na palma da mão</h2>
+                <p>Chega de procurar funcionários para tirar dúvidas sobre produtos. Com o QRInfo, basta escanear o código QR e ter acesso a todas as informações que você precisa.</p>
+                <div class="hero-buttons">
+                    <a href="#como-funciona" class="btn-primary">
+                        <i class="fas fa-play"></i>
+                        Como Funciona
+                    </a>
+                    <a href="selecao_cadastro.html" class="btn-secondary">
+                        <i class="fas fa-user-plus"></i>
+                        Começar Agora
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">
+                            <i class="fas fa-clock"></i>
+                            <span>80%</span>
+                        </div>
+                        <div class="stat-label">Redução no tempo de atendimento</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">
+                            <i class="fas fa-chart-line"></i>
+                            <span>35%</span>
+                        </div>
+                        <div class="stat-label">Aumento nas vendas</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">
+                            <i class="fas fa-smile"></i>
+                            <span>95%</span>
+                        </div>
+                        <div class="stat-label">Satisfação dos clientes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="product-info">
+                            <div class="product-image">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                            <h3>Camiseta Premium</h3>
+                            <ul>
+                                <li><i class="fas fa-palette"></i> <strong>Cores:</strong> Preto, Branco, Azul</li>
+                                <li><i class="fas fa-ruler"></i> <strong>Tamanhos:</strong> P, M, G, GG</li>
+                                <li><i class="fas fa-leaf"></i> <strong>Material:</strong> 100% Algodão</li>
+                                <li><i class="fas fa-check-circle"></i> <strong>Disponibilidade:</strong> Em estoque</li>
+                                <li><i class="fas fa-credit-card"></i> <strong>Pagamento:</strong> Dinheiro, Cartões, Pix</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="phone-home-button"></div>
+                </div>
+                <div class="qr-code-overlay">
+                    <div class="qr-code">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="scan-animation"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solucao">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Nossa Solução</span>
+                </div>
+                <h2>O Problema e Nossa Solução</h2>
+                <p>Transformando a experiência de compra com tecnologia simples e eficiente</p>
+            </div>
+            <div class="solution-grid">
+                <div class="problem-card">
+                    <div class="card-icon problem-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>O Problema</h3>
+                    <ul>
+                        <li><i class="fas fa-times"></i> Clientes perdem tempo procurando funcionários</li>
+                        <li><i class="fas fa-times"></i> Dúvidas sobre cores e tamanhos disponíveis</li>
+                        <li><i class="fas fa-times"></i> Incerteza sobre métodos de pagamento aceitos</li>
+                        <li><i class="fas fa-times"></i> Falta de informações sobre disponibilidade</li>
+                        <li><i class="fas fa-times"></i> Experiência de compra frustrada e ineficiente</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <div class="card-icon solution-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Nossa Solução</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> QR codes em todos os produtos</li>
+                        <li><i class="fas fa-check"></i> Acesso instantâneo a informações detalhadas</li>
+                        <li><i class="fas fa-check"></i> Autonomia para o cliente durante a compra</li>
+                        <li><i class="fas fa-check"></i> Redução da dependência de atendentes</li>
+                        <li><i class="fas fa-check"></i> Experiência de compra moderna e eficiente</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="beneficios">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Vantagens</span>
+                </div>
+                <h2>Benefícios</h2>
+                <p>Vantagens para lojistas e clientes</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Economia de Tempo</h3>
+                    <p>Clientes obtêm informações instantaneamente, sem esperar por atendimento.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">80%</span>
+                        <span class="metric-label">menos tempo de espera</span>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Otimização de Equipe</h3>
+                    <p>Funcionários podem focar em vendas e atendimentos mais complexos.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">60%</span>
+                        <span class="metric-label">mais produtividade</span>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Aumento de Vendas</h3>
+                    <p>Experiência de compra mais fluida resulta em maior conversão.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">35%</span>
+                        <span class="metric-label">aumento nas vendas</span>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Experiência Digital</h3>
+                    <p>Integração entre loja física e digital, modernizando a experiência.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">100%</span>
+                        <span class="metric-label">digital</span>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Dados Atualizados</h3>
+                    <p>Informações sempre atualizadas sobre disponibilidade e características.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">24/7</span>
+                        <span class="metric-label">atualização</span>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h3>Satisfação do Cliente</h3>
+                    <p>Clientes mais satisfeitos com a autonomia e facilidade de acesso às informações.</p>
+                    <div class="benefit-metric">
+                        <span class="metric-value">95%</span>
+                        <span class="metric-label">satisfação</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="como-funciona">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-cogs"></i>
+                    <span>Processo</span>
+                </div>
+                <h2>Como Funciona</h2>
+                <p>Simples para lojistas, intuitivo para clientes</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>Implementação</h3>
+                    <p>Geramos QR codes únicos para cada produto da sua loja e fornecemos etiquetas prontas para aplicação.</p>
+                    <div class="step-features">
+                        <span><i class="fas fa-check"></i> Códigos únicos</span>
+                        <span><i class="fas fa-check"></i> Etiquetas profissionais</span>
+                        <span><i class="fas fa-check"></i> Fácil aplicação</span>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Aplicação</h3>
+                    <p>As etiquetas com QR codes são aplicadas nos produtos ou nas prateleiras, de forma discreta e elegante.</p>
+                    <div class="step-features">
+                        <span><i class="fas fa-check"></i> Design discreto</span>
+                        <span><i class="fas fa-check"></i> Resistente</span>
+                        <span><i class="fas fa-check"></i> Posicionamento estratégico</span>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Escaneamento</h3>
+                    <p>O cliente escaneia o QR code com a câmera do seu smartphone, sem necessidade de aplicativo específico.</p>
+                    <div class="step-features">
+                        <span><i class="fas fa-check"></i> Sem app necessário</span>
+                        <span><i class="fas fa-check"></i> Instantâneo</span>
+                        <span><i class="fas fa-check"></i> Universal</span>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3>Informação</h3>
+                    <p>Uma página com todas as informações do produto é exibida instantaneamente: cores, tamanhos, disponibilidade e formas de pagamento.</p>
+                    <div class="step-features">
+                        <span><i class="fas fa-check"></i> Informações completas</span>
+                        <span><i class="fas fa-check"></i> Sempre atualizado</span>
+                        <span><i class="fas fa-check"></i> Interface amigável</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="demo-cta-section">
+                <div class="demo-cta-content">
+                    <h3>Pronto para começar?</h3>
+                    <p>Cadastre-se agora e transforme a experiência de compra da sua loja</p>
+                    <a href="cadastro.html" class="btn-primary btn-large">
+                        <i class="fas fa-rocket"></i>
+                        Começar Agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="casos">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Aplicações</span>
+                </div>
+                <h2>Casos de Uso</h2>
+                <p>Aplicações práticas para diferentes segmentos</p>
+            </div>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Lojas de Roupas</h3>
+                    <p>Informações sobre tamanhos disponíveis, cores, materiais e instruções de lavagem.</p>
+                    <div class="case-features">
+                        <span><i class="fas fa-check"></i> Detalhes do tecido</span>
+                        <span><i class="fas fa-check"></i> Guia de tamanhos</span>
+                        <span><i class="fas fa-check"></i> Sugestões de looks</span>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Restaurantes e Cafeterias</h3>
+                    <p>Cardápios digitais, informações sobre ingredientes, alérgenos e promoções do dia.</p>
+                    <div class="case-features">
+                        <span><i class="fas fa-check"></i> Cardápio interativo</span>
+                        <span><i class="fas fa-check"></i> Informações nutricionais</span>
+                        <span><i class="fas fa-check"></i> Avaliações de clientes</span>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Livrarias</h3>
+                    <p>Sinopse de livros, biografia do autor, resenhas e disponibilidade em estoque.</p>
+                    <div class="case-features">
+                        <span><i class="fas fa-check"></i> Trechos do livro</span>
+                        <span><i class="fas fa-check"></i> Livros relacionados</span>
+                        <span><i class="fas fa-check"></i> Opções de compra</span>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-icon">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                    <h3>Móveis e Decoração</h3>
+                    <p>Detalhes sobre materiais, dimensões, opções de cores e simulações em ambientes.</p>
+                    <div class="case-features">
+                        <span><i class="fas fa-check"></i> Modelos 3D</span>
+                        <span><i class="fas fa-check"></i> Dicas de decoração</span>
+                        <span><i class="fas fa-check"></i> Avaliações de produtos</span>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Academias e Esportes</h3>
+                    <p>Informações sobre equipamentos, planos de treino, horários de aulas e promoções.</p>
+                    <div class="case-features">
+                        <span><i class="fas fa-check"></i> Demonstração de exercícios</span>
+                        <span><i class="fas fa-check"></i> Calendário de aulas</span>
+                        <span><i class="fas fa-check"></i> Planos de assinatura</span>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-icon">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                    <h3>Pet Shops</h3>
+                    <p>Detalhes sobre rações, brinquedos, acessórios e informações sobre saúde animal.</p>
+                    <div class="case-features">
+                        <span><i class="fas fa-check"></i> Ingredientes da ração</span>
+                        <span><i class="fas fa-check"></i> Dicas de cuidado</span>
+                        <span><i class="fas fa-check"></i> Produtos recomendados</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="qr-tools">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-qrcode"></i>
+                    <span>Ferramentas QR</span>
+                </div>
+                <h2>Leitor e Gerador de QR Code</h2>
+                <p>Escaneie ou crie seus próprios QR Codes</p>
+            </div>
+            <div class="qr-tools-grid">
+                <div class="qr-scanner-card">
+                    <h3>Leitor de QR Code</h3>
+                    <p>Aponte a câmera para um QR Code para escanear.</p>
+                    <div id="reader" style="width: 100%;"></div>
+                    <div id="qr-reader-results" class="qr-results"></div>
+                    <button id="startScanner" class="btn btn-primary"><i class="fas fa-camera"></i> Iniciar Scanner</button>
+                    <button id="stopScanner" class="btn btn-secondary" style="display: none;"><i class="fas fa-stop-circle"></i> Parar Scanner</button>
+                </div>
+                <div class="qr-generator-card">
+                    <h3>Gerador de QR Code</h3>
+                    <p>Insira os dados para gerar um QR Code personalizado.</p>
+                    <div class="form-group">
+                        <label for="generatorData">Dados para o QR Code:</label>
+                        <textarea id="generatorData" rows="5" placeholder="Ex: Nome da Loja: Minha Loja, Produto: Camiseta, Preço: R$ 59.90"></textarea>
+                    </div>
+                    <button id="generateQr" class="btn btn-primary"><i class="fas fa-qrcode"></i> Gerar QR Code</button>
+                    <div id="qrcodeGenerator" class="qr-output"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-envelope"></i>
+                    <span>Fale Conosco</span>
+                </div>
+                <h2>Entre em Contato</h2>
+                <p>Tire suas dúvidas ou solicite uma demonstração</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Informações de Contato</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Rua Exemplo, 123 - Cidade, Estado</p>
+                    <p><i class="fas fa-phone"></i> (11) 98765-4321</p>
+                    <p><i class="fas fa-envelope"></i> contato@qrinfo.com.br</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Envie sua Mensagem</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="contactName">Nome:</label>
+                            <input type="text" id="contactName" name="contactName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">E-mail:</label>
+                            <input type="email" id="contactEmail" name="contactEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Mensagem:</label>
+                            <textarea id="contactMessage" name="contactMessage" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col logo-col">
+                    <div class="logo">
+                        <i class="fas fa-qrcode logo-icon"></i>
+                        <h1>QR<span>Info</span></h1>
+                    </div>
+                    <p>Sua solução completa para informações de produtos via QR Code.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Navegação</h3>
+                    <ul>
+                        <li><a href="#solucao">Solução</a></li>
+                        <li><a href="#beneficios">Benefícios</a></li>
+                        <li><a href="#como-funciona">Como Funciona</a></li>
+                        <li><a href="#casos">Casos de Uso</a></li>
+                        <li><a href="#qr-tools">Ferramentas QR</a></li>
+                        <li><a href="cadastro.html">Cadastrar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contato</h3>
+                    <p>Rua Exemplo, 123</p>
+                    <p>Cidade, Estado - CEP 00000-000</p>
+                    <p>Telefone: (11) 98765-4321</p>
+                    <p>Email: contato@qrinfo.com.br</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 QRInfo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="qrcode.min.js"></script>
+    <script src="html5-qrcode.min.js"></script>
+</body>
+</html>
+
