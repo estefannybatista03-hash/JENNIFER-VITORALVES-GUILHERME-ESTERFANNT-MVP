@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações do Produto - QR Info</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="product-page">
+        <header class="product-header">
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-qrcode logo-icon"></i>
+                    <h1>QR<span>Info</span></h1>
+                </div>
+                <a href="index.html" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Voltar
+                </a>
+            </div>
+        </header>
+
+        <main class="product-main">
+            <div class="container">
+                <div class="product-content">
+                    <div class="product-image-section">
+                        <div class="product-image-container">
+                            <img id="productImage" src="https://via.placeholder.com/400x400/2ECC71/FFFFFF?text=Produto" alt="Imagem do Produto">
+                            <div class="image-overlay">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                        <div class="product-gallery">
+                            <div class="gallery-item active">
+                                <img src="https://via.placeholder.com/80x80/2ECC71/FFFFFF?text=1" alt="Imagem 1">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/80x80/27AE60/FFFFFF?text=2" alt="Imagem 2">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://via.placeholder.com/80x80/229954/FFFFFF?text=3" alt="Imagem 3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-info-section">
+                        <div class="store-info">
+                            <div class="store-logo">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="store-details">
+                                <h3 id="storeName">Carregando...</h3>
+                                <p id="storeAddress">Carregando endereço...</p>
+                                <div class="store-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span>4.8 (127 avaliações)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-details">
+                            <h1 id="productName">Carregando produto...</h1>
+                            <p id="productCategory" class="product-category">Carregando categoria...</p>
+                            
+                            <div class="product-price">
+                                <span id="productPrice" class="price">R$ 0,00</span>
+                                <span class="price-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    Preço válido na loja física
+                                </span>
+                            </div>
+
+                            <div class="product-description">
+                                <h3>Descrição</h3>
+                                <p id="productDescription">Carregando descrição...</p>
+                            </div>
+
+                            <div class="product-options">
+                                <div class="option-group">
+                                    <h4>Cores Disponíveis</h4>
+                                    <div id="productColors" class="color-options">
+                                        <!-- Cores serão inseridas dinamicamente -->
+                                    </div>
+                                </div>
+
+                                <div class="option-group">
+                                    <h4>Tamanhos Disponíveis</h4>
+                                    <div id="productSizes" class="size-options">
+                                        <!-- Tamanhos serão inseridos dinamicamente -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-features">
+                                <h3>Características</h3>
+                                <ul id="productFeatures">
+                                    <!-- Características serão inseridas dinamicamente -->
+                                </ul>
+                            </div>
+
+                            <div class="availability-info">
+                                <div class="availability-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Disponível em estoque</span>
+                                </div>
+                                <div class="availability-item">
+                                    <i class="fas fa-truck"></i>
+                                    <span>Retirada na loja</span>
+                                </div>
+                                <div class="availability-item">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span>Política de troca: 30 dias</span>
+                                </div>
+                            </div>
+
+                            <div class="payment-methods">
+                                <h3>Formas de Pagamento</h3>
+                                <div class="payment-grid">
+                                    <div class="payment-item">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        <span>Dinheiro</span>
+                                    </div>
+                                    <div class="payment-item">
+                                        <i class="fas fa-credit-card"></i>
+                                        <span>Cartão de Crédito</span>
+                                    </div>
+                                    <div class="payment-item">
+                                        <i class="fas fa-credit-card"></i>
+                                        <span>Cartão de Débito</span>
+                                    </div>
+                                    <div class="payment-item">
+                                        <i class="fas fa-qrcode"></i>
+                                        <span>PIX</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-large">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Ver Localização da Loja
+                                </button>
+                                <button class="btn btn-secondary btn-large">
+                                    <i class="fas fa-share-alt"></i>
+                                    Compartilhar Produto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="related-products">
+                    <h3>Produtos Relacionados</h3>
+                    <div class="related-grid">
+                        <div class="related-item">
+                            <img src="https://via.placeholder.com/150x150/2ECC71/FFFFFF?text=P1" alt="Produto Relacionado 1">
+                            <h4>Produto Similar 1</h4>
+                            <p>R$ 45,90</p>
+                        </div>
+                        <div class="related-item">
+                            <img src="https://via.placeholder.com/150x150/27AE60/FFFFFF?text=P2" alt="Produto Relacionado 2">
+                            <h4>Produto Similar 2</h4>
+                            <p>R$ 67,90</p>
+                        </div>
+                        <div class="related-item">
+                            <img src="https://via.placeholder.com/150x150/229954/FFFFFF?text=P3" alt="Produto Relacionado 3">
+                            <h4>Produto Similar 3</h4>
+                            <p>R$ 52,90</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="product-footer">
+            <div class="container">
+                <p>&copy; 2025 QRInfo. Informações fornecidas pela loja.</p>
+                <div class="footer-links">
+                    <a href="#" onclick="reportIssue()">Reportar Problema</a>
+                    <a href="index.html">Sobre o QRInfo</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Função para extrair parâmetros da URL
+        function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const data = urlParams.get('data');
+            return data ? decodeURIComponent(data) : null;
+        }
+
+        // Função para parsear dados do QR Code
+        function parseQRData(data) {
+            const info = {};
+            const pairs = data.split(',');
+            
+            pairs.forEach(pair => {
+                const [key, value] = pair.split(':').map(s => s.trim());
+                if (key && value) {
+                    info[key.toLowerCase().replace(/\s+/g, '_')] = value;
+                }
+            });
+            
+            return info;
+        }
+
+        // Função para popular a página com dados do produto
+        function populateProductInfo(data) {
+            const info = parseQRData(data);
+            
+            // Informações da loja
+            document.getElementById('storeName').textContent = info.nome_da_loja || 'Loja Exemplo';
+            document.getElementById('storeAddress').textContent = info.endereco || 'Endereço não informado';
+            
+            // Informações do produto
+            document.getElementById('productName').textContent = info.produto || 'Produto Exemplo';
+            document.getElementById('productCategory').textContent = info.categoria || 'Categoria não informada';
+            document.getElementById('productPrice').textContent = info.preço || 'R$ 0,00';
+            document.getElementById('productDescription').textContent = info.descrição || 'Descrição não disponível';
+            
+            // Cores disponíveis
+            const colorsContainer = document.getElementById('productColors');
+            if (info.cores) {
+                const colors = info.cores.split(/[,;]/);
+                colorsContainer.innerHTML = '';
+                colors.forEach(color => {
+                    const colorElement = document.createElement('span');
+                    colorElement.className = 'color-option';
+                    colorElement.textContent = color.trim();
+                    colorsContainer.appendChild(colorElement);
+                });
+            }
+            
+            // Tamanhos disponíveis
+            const sizesContainer = document.getElementById('productSizes');
+            if (info.tamanhos) {
+                const sizes = info.tamanhos.split(/[,;]/);
+                sizesContainer.innerHTML = '';
+                sizes.forEach(size => {
+                    const sizeElement = document.createElement('span');
+                    sizeElement.className = 'size-option';
+                    sizeElement.textContent = size.trim();
+                    sizesContainer.appendChild(sizeElement);
+                });
+            }
+            
+            // Características do produto
+            const featuresContainer = document.getElementById('productFeatures');
+            featuresContainer.innerHTML = '';
+            
+            // Adicionar características baseadas nos dados disponíveis
+            if (info.material) {
+                const li = document.createElement('li');
+                li.innerHTML = '<i class="fas fa-fabric"></i> Material: ' + info.material;
+                featuresContainer.appendChild(li);
+            }
+            
+            if (info.marca) {
+                const li = document.createElement('li');
+                li.innerHTML = '<i class="fas fa-tag"></i> Marca: ' + info.marca;
+                featuresContainer.appendChild(li);
+            }
+            
+            if (info.garantia) {
+                const li = document.createElement('li');
+                li.innerHTML = '<i class="fas fa-shield-alt"></i> Garantia: ' + info.garantia;
+                featuresContainer.appendChild(li);
+            }
+        }
+
+        // Função para reportar problema
+        function reportIssue() {
+            alert('Funcionalidade de reportar problema será implementada em breve.');
+        }
+
+        // Função para compartilhar produto
+        function shareProduct() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.getElementById('productName').textContent,
+                    text: 'Confira este produto!',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback para navegadores que não suportam Web Share API
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Link copiado para a área de transferência!');
+                });
+            }
+        }
+
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', function() {
+            const qrData = getUrlParams();
+            
+            if (qrData) {
+                populateProductInfo(qrData);
+            } else {
+                // Dados de exemplo se não houver parâmetros
+                const exampleData = "Nome da Loja: Loja Exemplo, Produto: Camiseta Premium, Preço: R$ 59.90, Cores: Preto, Branco, Azul, Tamanhos: P, M, G, GG, Material: 100% Algodão, Categoria: Roupas";
+                populateProductInfo(exampleData);
+            }
+            
+            // Event listeners
+            document.querySelector('.btn-secondary').addEventListener('click', shareProduct);
+            
+            // Gallery functionality
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const mainImage = document.getElementById('productImage');
+            
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    galleryItems.forEach(gi => gi.classList.remove('active'));
+                    this.classList.add('active');
+                    const newSrc = this.querySelector('img').src.replace('80x80', '400x400');
+                    mainImage.src = newSrc;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

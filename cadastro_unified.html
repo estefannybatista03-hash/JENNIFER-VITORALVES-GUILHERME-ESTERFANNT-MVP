@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - QR Info</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Cadastre-se no QR Info e revolucione a experiência de compra da sua loja com QR codes inteligentes.">
+    <style>
+        .cadastro-unified {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%);
+            padding: 2rem 0;
+        }
+        
+        .cadastro-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .cadastro-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .cadastro-header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cadastro-header p {
+            color: var(--gray-600);
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .password-field {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.875rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray-600);
+        }
+        
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .back-to-home {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .back-to-home a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-to-home a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="cadastro-unified">
+        <div class="container">
+            <div class="back-to-home">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i>
+                    Voltar ao início
+                </a>
+            </div>
+            
+            <div class="cadastro-card">
+                <div class="cadastro-header">
+                    <h1><i class="fas fa-qrcode"></i> QRInfo</h1>
+                    <p>Cadastre-se e revolucione sua loja</p>
+                </div>
+                
+                <div id="successMessage" class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    Cadastro realizado com sucesso! Bem-vindo ao QRInfo.
+                </div>
+                
+                <div id="errorMessage" class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="errorText">Erro ao realizar cadastro. Tente novamente.</span>
+                </div>
+                
+                <form id="cadastroForm">
+                    <div class="form-group">
+                        <label for="nomeCompleto">Nome Completo *</label>
+                        <input type="text" id="nomeCompleto" name="nomeCompleto" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefone">Telefone *</label>
+                        <input type="tel" id="telefone" name="telefone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="empresa">Nome da Empresa *</label>
+                        <input type="text" id="empresa" name="empresa" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="segmento">Segmento da Empresa *</label>
+                        <select id="segmento" name="segmento" required>
+                            <option value="">Selecione o segmento</option>
+                            <option value="moda">Moda e Vestuário</option>
+                            <option value="supermercado">Supermercado</option>
+                            <option value="farmacia">Farmácia</option>
+                            <option value="eletronicos">Eletrônicos</option>
+                            <option value="livraria">Livraria</option>
+                            <option value="casa-construcao">Casa e Construção</option>
+                            <option value="esportes">Esportes</option>
+                            <option value="beleza">Beleza e Cosméticos</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="senha">Senha *</label>
+                        <div class="password-field">
+                            <input type="password" id="senha" name="senha" required minlength="6">
+                            <button type="button" class="password-toggle" data-target="senha">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmarSenha">Confirmar Senha *</label>
+                        <div class="password-field">
+                            <input type="password" id="confirmarSenha" name="confirmarSenha" required minlength="6">
+                            <button type="button" class="password-toggle" data-target="confirmarSenha">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Criar Conta
+                    </button>
+                </form>
+                
+                <div class="login-link">
+                    Já tem uma conta? <a href="#" onclick="showLoginMessage()">Faça login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gerenciamento do formulário de cadastro
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('cadastroForm');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            // Toggle de senha
+            document.querySelectorAll('.password-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const targetId = this.dataset.target;
+                    const passwordField = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
+                    
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        passwordField.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+            
+            // Máscara para telefone
+            document.getElementById('telefone').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length <= 11) {
+                    value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                    if (value.length < 14) {
+                        value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+                    }
+                }
+                e.target.value = value;
+            });
+            
+            // Validação e envio do formulário
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Esconder mensagens anteriores
+                successMessage.style.display = 'none';
+                errorMessage.style.display = 'none';
+                
+                // Validar campos
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                
+                // Validações básicas
+                if (!data.nomeCompleto || !data.email || !data.telefone || !data.empresa || !data.segmento || !data.senha || !data.confirmarSenha) {
+                    showError('Todos os campos são obrigatórios.');
+                    return;
+                }
+                
+                if (data.senha !== data.confirmarSenha) {
+                    showError('As senhas não coincidem.');
+                    return;
+                }
+                
+                if (data.senha.length < 6) {
+                    showError('A senha deve ter pelo menos 6 caracteres.');
+                    return;
+                }
+                
+                // Validar email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(data.email)) {
+                    showError('Por favor, insira um e-mail válido.');
+                    return;
+                }
+                
+                // Simular envio (aqui você integraria com seu backend)
+                simulateSubmit(data);
+            });
+            
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            function showSuccess() {
+                successMessage.style.display = 'block';
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                form.reset();
+            }
+            
+            function simulateSubmit(data) {
+                // Simular delay de envio
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+                
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cadastrando...';
+                submitButton.disabled = true;
+                
+                setTimeout(() => {
+                    // Simular sucesso (90% das vezes)
+                    if (Math.random() > 0.1) {
+                        showSuccess();
+                        console.log('Dados do cadastro:', data);
+                        
+                        // Redirecionar após 3 segundos
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 3000);
+                    } else {
+                        showError('Erro no servidor. Tente novamente em alguns instantes.');
+                    }
+                    
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                }, 2000);
+            }
+        });
+        
+        function showLoginMessage() {
+            alert('Funcionalidade de login será implementada em breve!');
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRInfo - Escolha seu Tipo de Cadastro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .selection-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .selection-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .selection-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .selection-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .option-card {
+            background: #f8f9fa;
+            border: 3px solid transparent;
+            border-radius: 15px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .option-card:hover {
+            border-color: #4CAF50;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.2);
+        }
+
+        .option-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        .option-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .option-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .options-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .selection-title {
+                font-size: 2rem;
+            }
+
+            .selection-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="selection-container">
+        <div class="selection-card">
+            <h1 class="selection-title">
+                <i class="fas fa-qrcode" style="color: #4CAF50; margin-right: 15px;"></i>
+                QRInfo
+            </h1>
+            <p class="selection-subtitle">Escolha como você deseja se cadastrar</p>
+            
+            <div class="options-container">
+                <a href="cadastro_empresa.html" class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="option-title">Sou uma Empresa</h3>
+                    <p class="option-description">
+                        Cadastre sua empresa e comece a gerenciar produtos com QR codes. 
+                        Tenha controle total do seu estoque e melhore a experiência dos seus clientes.
+                    </p>
+                </a>
+
+                <a href="cadastro_cliente.html" class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="option-title">Sou um Cliente</h3>
+                    <p class="option-description">
+                        Cadastre-se para ter acesso completo ao app QRInfo. 
+                        Escaneie QR codes e tenha informações detalhadas de produtos na palma da mão.
+                    </p>
+                </a>
+            </div>
+
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Voltar ao Início
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Adicionar efeitos de hover e animações
+        document.addEventListener('DOMContentLoaded', function() {
+            const optionCards = document.querySelectorAll('.option-card');
+            
+            optionCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

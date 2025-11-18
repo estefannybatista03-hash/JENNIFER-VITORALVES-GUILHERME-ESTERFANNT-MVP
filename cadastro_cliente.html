@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRInfo - Cadastro de Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .cadastro-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cadastro-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .cadastro-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cadastro-title {
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .cadastro-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .back-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+
+        .benefits-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .benefits-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits-list li {
+            padding: 8px 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+        .benefits-list li i {
+            color: #4CAF50;
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .cadastro-card {
+                padding: 30px 20px;
+            }
+
+            .cadastro-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cadastro-container">
+        <div class="cadastro-card">
+            <a href="selecao_cadastro.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+
+            <div class="cadastro-header">
+                <h1 class="cadastro-title">
+                    <i class="fas fa-user" style="color: #4CAF50; margin-right: 15px;"></i>
+                    Cadastro de Cliente
+                </h1>
+                <p class="cadastro-subtitle">Crie sua conta e tenha acesso ao QRInfo</p>
+            </div>
+
+            <div class="benefits-section">
+                <h3 class="benefits-title">
+                    <i class="fas fa-star" style="color: #4CAF50; margin-right: 10px;"></i>
+                    Benefícios do QRInfo
+                </h3>
+                <ul class="benefits-list">
+                    <li><i class="fas fa-qrcode"></i> Escaneie QR codes e acesse informações instantaneamente</li>
+                    <li><i class="fas fa-info-circle"></i> Veja detalhes completos dos produtos</li>
+                    <li><i class="fas fa-clock"></i> Economize tempo nas compras</li>
+                    <li><i class="fas fa-mobile-alt"></i> Tudo na palma da sua mão</li>
+                </ul>
+            </div>
+
+            <div id="successMessage" class="success-message">
+                <i class="fas fa-check-circle"></i> Cadastro realizado com sucesso! Redirecionando para o app...
+            </div>
+
+            <div id="errorMessage" class="error-message">
+                <i class="fas fa-exclamation-triangle"></i> Por favor, preencha todos os campos obrigatórios.
+            </div>
+
+            <form id="clienteForm">
+                <div class="form-group">
+                    <label class="form-label" for="nomeCompleto">Nome Completo *</label>
+                    <input type="text" id="nomeCompleto" name="nomeCompleto" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="emailCliente">E-mail *</label>
+                    <input type="email" id="emailCliente" name="emailCliente" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="telefoneCliente">Telefone *</label>
+                    <input type="tel" id="telefoneCliente" name="telefoneCliente" class="form-input" placeholder="(11) 99999-9999" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="cpf">CPF *</label>
+                    <input type="text" id="cpf" name="cpf" class="form-input" placeholder="000.000.000-00" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="dataNascimento">Data de Nascimento *</label>
+                    <input type="date" id="dataNascimento" name="dataNascimento" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="senhaCliente">Senha *</label>
+                    <div class="password-container">
+                        <input type="password" id="senhaCliente" name="senhaCliente" class="form-input" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('senhaCliente')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirmarSenhaCliente">Confirmar Senha *</label>
+                    <div class="password-container">
+                        <input type="password" id="confirmarSenhaCliente" name="confirmarSenhaCliente" class="form-input" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('confirmarSenhaCliente')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    <i class="fas fa-user-plus"></i> Criar Minha Conta
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Máscara para CPF
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            e.target.value = value;
+        });
+
+        // Máscara para telefone
+        document.getElementById('telefoneCliente').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/^(\d{2})(\d)/, '($1) $2');
+            value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            e.target.value = value;
+        });
+
+        // Toggle de senha
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const button = field.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Validação de CPF
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g, '');
+            if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false;
+            
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            let resto = 11 - (soma % 11);
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(9))) return false;
+            
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            resto = 11 - (soma % 11);
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(10))) return false;
+            
+            return true;
+        }
+
+        // Validação e envio do formulário
+        document.getElementById('clienteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const senha = document.getElementById('senhaCliente').value;
+            const confirmarSenha = document.getElementById('confirmarSenhaCliente').value;
+            const cpf = document.getElementById('cpf').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Esconder mensagens anteriores
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Validar CPF
+            if (!validarCPF(cpf)) {
+                errorMessage.textContent = 'CPF inválido.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Validar se as senhas coincidem
+            if (senha !== confirmarSenha) {
+                errorMessage.textContent = 'As senhas não coincidem.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Validar se todos os campos obrigatórios estão preenchidos
+            const requiredFields = this.querySelectorAll('[required]');
+            let allValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    allValid = false;
+                }
+            });
+            
+            if (!allValid) {
+                errorMessage.textContent = 'Por favor, preencha todos os campos obrigatórios.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Simular envio bem-sucedido
+            successMessage.style.display = 'block';
+            
+            // Redirecionar para o app após 2 segundos
+            setTimeout(() => {
+                window.location.href = 'app_cliente.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
+

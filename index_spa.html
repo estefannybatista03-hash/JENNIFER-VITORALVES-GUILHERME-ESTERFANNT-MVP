@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Info - Informações de produtos ao seu alcance</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Acesse informações detalhadas de produtos através de QR codes. Economize tempo e tenha todas as informações na palma da sua mão.">
+    <style>
+        /* Estilos para SPA */
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        .nav-link {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Estilos para página de cadastro */
+        .cadastro-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%);
+            padding: 2rem 0;
+        }
+        
+        .cadastro-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .cadastro-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .cadastro-header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cadastro-header p {
+            color: var(--gray-600);
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .password-field {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.875rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray-600);
+        }
+        
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        /* Estilos para visualização do app */
+        .app-demo-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%);
+            padding: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 40px;
+            padding: 8px;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .status-bar {
+            height: 44px;
+            background: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+        
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .app-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .app-logo {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .app-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 24px 20px;
+            height: calc(100% - 44px - 120px - 80px);
+            overflow-y: auto;
+        }
+        
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .welcome-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+        
+        .welcome-text {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .scanner-section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .scanner-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .scanner-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+        
+        .scanner-text {
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .scan-button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+        
+        .scan-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .feature-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-100);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-secondary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 1.25rem;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+        
+        .feature-text {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            line-height: 1.3;
+        }
+        
+        .recent-section {
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .recent-item {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .recent-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+        }
+        
+        .recent-content {
+            flex: 1;
+        }
+        
+        .recent-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-800);
+            margin-bottom: 2px;
+        }
+        
+        .recent-time {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+        
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: var(--white);
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 20px;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-item i {
+            font-size: 1.25rem;
+        }
+        
+        .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 134px;
+            height: 5px;
+            background: var(--gray-900);
+            border-radius: 3px;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transition: transform 0.2s ease;
+        }
+        
+        .back-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-top: 2rem;
+        }
+        
+        .page-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-header p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-qrcode logo-icon"></i>
+                <h1>QR<span>Info</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="home"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="#" class="nav-link" data-page="solucao"><i class="fas fa-lightbulb"></i> Solução</a></li>
+                    <li><a href="#" class="nav-link" data-page="beneficios"><i class="fas fa-star"></i> Benefícios</a></li>
+                    <li><a href="#" class="nav-link" data-page="como-funciona"><i class="fas fa-cogs"></i> Como Funciona</a></li>
+                    <li><a href="#" class="nav-link" data-page="casos"><i class="fas fa-briefcase"></i> Casos de Uso</a></li>
+                    <li><a href="#" class="nav-link" data-page="app-demo"><i class="fas fa-mobile-alt"></i> Ver App</a></li>
+                    <li><a href="#" class="nav-link btn-cadastro" data-page="cadastro"><i class="fas fa-user-plus"></i> Cadastrar</a></li>
+                    <li><a href="#" class="nav-link btn-contato" data-page="contato"><i class="fas fa-envelope"></i> Contato</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Botão de voltar (aparece apenas nas páginas internas) -->
+    <button class="back-button" id="backButton" style="display: none;" onclick="showPage('home')">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <!-- Página Inicial -->
+    <div id="home" class="page-section active">
+        <section id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-rocket"></i>
+                        <span>Revolucione sua loja</span>
+                    </div>
+                    <h2>Informações de produtos na palma da mão</h2>
+                    <p>Chega de procurar funcionários para tirar dúvidas sobre produtos. Com o QRInfo, basta escanear o código QR e ter acesso a todas as informações que você precisa.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn-primary nav-link" data-page="como-funciona">
+                            <i class="fas fa-play"></i>
+                            Como Funciona
+                        </a>
+                        <a href="#" class="btn-secondary nav-link" data-page="cadastro">
+                            <i class="fas fa-user-plus"></i>
+                            Começar Agora
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">
+                                <i class="fas fa-clock"></i>
+                                <span>80%</span>
+                            </div>
+                            <div class="stat-label">Redução no tempo de atendimento</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">
+                                <i class="fas fa-chart-line"></i>
+                                <span>35%</span>
+                            </div>
+                            <div class="stat-label">Aumento nas vendas</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">
+                                <i class="fas fa-smile"></i>
+                                <span>95%</span>
+                            </div>
+                            <div class="stat-label">Satisfação dos clientes</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="product-info">
+                                <div class="product-image">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                                <h3>Camiseta Premium</h3>
+                                <ul>
+                                    <li><i class="fas fa-palette"></i> <strong>Cores:</strong> Preto, Branco, Azul</li>
+                                    <li><i class="fas fa-ruler"></i> <strong>Tamanhos:</strong> P, M, G, GG</li>
+                                    <li><i class="fas fa-leaf"></i> <strong>Material:</strong> 100% Algodão</li>
+                                    <li><i class="fas fa-check-circle"></i> <strong>Disponibilidade:</strong> Em estoque</li>
+                                    <li><i class="fas fa-credit-card"></i> <strong>Pagamento:</strong> Dinheiro, Cartões, Pix</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="phone-home-button"></div>
+                    </div>
+                    <div class="qr-code-overlay">
+                        <div class="qr-code">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="scan-animation"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Página de Solução -->
+    <div id="solucao" class="page-section">
+        <div class="page-header">
+            <h1><i class="fas fa-lightbulb"></i> Nossa Solução</h1>
+            <p>Transformando a experiência de compra com tecnologia simples e eficiente</p>
+        </div>
+        <section>
+            <div class="container">
+                <div class="solution-grid">
+                    <div class="problem-card">
+                        <div class="card-icon problem-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>O Problema</h3>
+                        <ul>
+                            <li><i class="fas fa-times"></i> Clientes perdem tempo procurando funcionários</li>
+                            <li><i class="fas fa-times"></i> Dúvidas sobre cores e tamanhos disponíveis</li>
+                            <li><i class="fas fa-times"></i> Incerteza sobre métodos de pagamento aceitos</li>
+                            <li><i class="fas fa-times"></i> Falta de informações sobre disponibilidade</li>
+                            <li><i class="fas fa-times"></i> Experiência de compra frustrada e ineficiente</li>
+                        </ul>
+                    </div>
+                    <div class="solution-card">
+                        <div class="card-icon solution-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Nossa Solução</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i> QR codes em todos os produtos</li>
+                            <li><i class="fas fa-check"></i> Acesso instantâneo a informações detalhadas</li>
+                            <li><i class="fas fa-check"></i> Autonomia para o cliente durante a compra</li>
+                            <li><i class="fas fa-check"></i> Redução da dependência de atendentes</li>
+                            <li><i class="fas fa-check"></i> Experiência de compra moderna e eficiente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Página de Benefícios -->
+    <div id="beneficios" class="page-section">
+        <div class="page-header">
+            <h1><i class="fas fa-star"></i> Benefícios</h1>
+            <p>Vantagens para lojistas e clientes</p>
+        </div>
+        <section>
+            <div class="container">
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Economia de Tempo</h3>
+                        <p>Clientes obtêm informações instantaneamente, sem esperar por atendimento.</p>
+                        <div class="benefit-metric">
+                            <span class="metric-value">80%</span>
+                            <span class="metric-label">menos tempo de espera</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Otimização de Equipe</h3>
+                        <p>Funcionários podem focar em vendas e atendimentos mais complexos.</p>
+                        <div class="benefit-metric">
+                            <span class="metric-value">60%</span>
+                            <span class="metric-label">mais produtividade</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Aumento de Vendas</h3>
+                        <p>Experiência de compra mais fluida resulta em maior conversão.</p>
+                        <div class="benefit-metric">
+                            <span class="metric-value">35%</span>
+                            <span class="metric-label">aumento nas vendas</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Experiência Digital</h3>
+                        <p>Integração entre loja física e digital, modernizando a experiência.</p>
+                        <div class="benefit-metric">
+                            <span class="metric-value">100%</span>
+                            <span class="metric-label">digital</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Dados Atualizados</h3>
+                        <p>Informações sempre atualizadas sobre disponibilidade e características.</p>
+                        <div class="benefit-metric">
+                            <span class="metric-value">24/7</span>
+                            <span class="metric-label">atualização</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <h3>Satisfação do Cliente</h3>
+                        <p>Clientes mais satisfeitos com a autonomia e facilidade de acesso às informações.</p>
+                        <div class="benefit-metric">
+                            <span class="metric-value">95%</span>
+                            <span class="metric-label">satisfação</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Página Como Funciona -->
+    <div id="como-funciona" class="page-section">
+        <div class="page-header">
+            <h1><i class="fas fa-cogs"></i> Como Funciona</h1>
+            <p>Simples para lojistas, intuitivo para clientes</p>
+        </div>
+        <section>
+            <div class="container">
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <h3>Implementação</h3>
+                        <p>Geramos QR codes únicos para cada produto da sua loja e fornecemos etiquetas prontas para aplicação.</p>
+                        <div class="step-features">
+                            <span><i class="fas fa-check"></i> Códigos únicos</span>
+                            <span><i class="fas fa-check"></i> Etiquetas profissionais</span>
+                            <span><i class="fas fa-check"></i> Fácil aplicação</span>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <h3>Aplicação</h3>
+                        <p>As etiquetas com QR codes são aplicadas nos produtos ou nas prateleiras, de forma discreta e elegante.</p>
+                        <div class="step-features">
+                            <span><i class="fas fa-check"></i> Design discreto</span>
+                            <span><i class="fas fa-check"></i> Resistente</span>
+                            <span><i class="fas fa-check"></i> Posicionamento estratégico</span>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Escaneamento</h3>
+                        <p>O cliente escaneia o QR code com a câmera do seu smartphone, sem necessidade de aplicativo específico.</p>
+                        <div class="step-features">
+                            <span><i class="fas fa-check"></i> Sem app necessário</span>
+                            <span><i class="fas fa-check"></i> Instantâneo</span>
+                            <span><i class="fas fa-check"></i> Universal</span>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <h3>Informação</h3>
+                        <p>Uma página com todas as informações do produto é exibida instantaneamente: cores, tamanhos, disponibilidade e formas de pagamento.</p>
+                        <div class="step-features">
+                            <span><i class="fas fa-check"></i> Informações completas</span>
+                            <span><i class="fas fa-check"></i> Sempre atualizado</span>
+                            <span><i class="fas fa-check"></i> Interface amigável</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-cta-section">
+                    <div class="demo-cta-content">
+                        <h3>Pronto para começar?</h3>
+                        <p>Cadastre-se agora e transforme a experiência de compra da sua loja</p>
+                        <a href="#" class="btn-primary btn-large nav-link" data-page="cadastro">
+                            <i class="fas fa-rocket"></i>
+                            Começar Agora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Página Casos de Uso -->
+    <div id="casos" class="page-section">
+        <div class="page-header">
+            <h1><i class="fas fa-briefcase"></i> Casos de Uso</h1>
+            <p>Aplicações práticas para diferentes segmentos</p>
+        </div>
+        <section>
+            <div class="container">
+                <div class="cases-grid">
+                    <div class="case-card">
+                        <div class="case-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <h3>Lojas de Roupas</h3>
+                        <p>Informações sobre tamanhos disponíveis, cores, materiais e instruções de lavagem.</p>
+                        <div class="case-features">
+                            <span><i class="fas fa-check"></i> Detalhes do tecido</span>
+                            <span><i class="fas fa-check"></i> Guia de tamanhos</span>
+                            <span><i class="fas fa-check"></i> Sugestões de looks</span>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <div class="case-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Restaurantes e Cafeterias</h3>
+                        <p>Cardápios digitais, informações sobre ingredientes, alérgenos e promoções do dia.</p>
+                        <div class="case-features">
+                            <span><i class="fas fa-check"></i> Cardápio interativo</span>
+                            <span><i class="fas fa-check"></i> Informações nutricionais</span>
+                            <span><i class="fas fa-check"></i> Avaliações de clientes</span>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <div class="case-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Livrarias</h3>
+                        <p>Sinopse de livros, biografia do autor, resenhas e disponibilidade em estoque.</p>
+                        <div class="case-features">
+                            <span><i class="fas fa-check"></i> Trechos do livro</span>
+                            <span><i class="fas fa-check"></i> Livros relacionados</span>
+                            <span><i class="fas fa-check"></i> Opções de compra</span>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <div class="case-icon">
+                            <i class="fas fa-couch"></i>
+                        </div>
+                        <h3>Móveis e Decoração</h3>
+                        <p>Detalhes sobre materiais, dimensões, opções de cores e simulações em ambientes.</p>
+                        <div class="case-features">
+                            <span><i class="fas fa-check"></i> Modelos 3D</span>
+                            <span><i class="fas fa-check"></i> Dicas de decoração</span>
+                            <span><i class="fas fa-check"></i> Avaliações de produtos</span>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <div class="case-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h3>Academias e Esportes</h3>
+                        <p>Informações sobre equipamentos, planos de treino, horários de aulas e promoções.</p>
+                        <div class="case-features">
+                            <span><i class="fas fa-check"></i> Demonstração de exercícios</span>
+                            <span><i class="fas fa-check"></i> Calendário de aulas</span>
+                            <span><i class="fas fa-check"></i> Planos de assinatura</span>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <div class="case-icon">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <h3>Pet Shops</h3>
+                        <p>Detalhes sobre rações, brinquedos, acessórios e informações sobre saúde animal.</p>
+                        <div class="case-features">
+                            <span><i class="fas fa-check"></i> Ingredientes da ração</span>
+                            <span><i class="fas fa-check"></i> Dicas de cuidado</span>
+                            <span><i class="fas fa-check"></i> Produtos recomendados</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Página de Cadastro -->
+    <div id="cadastro" class="page-section">
+        <div class="cadastro-page">
+            <div class="container">
+                <div class="cadastro-card">
+                    <div class="cadastro-header">
+                        <h1><i class="fas fa-qrcode"></i> QRInfo</h1>
+                        <p>Cadastre-se e revolucione sua loja</p>
+                    </div>
+                    
+                    <div id="successMessage" class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        Cadastro realizado com sucesso! Bem-vindo ao QRInfo.
+                    </div>
+                    
+                    <div id="errorMessage" class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span id="errorText">Erro ao realizar cadastro. Tente novamente.</span>
+                    </div>
+                    
+                    <form id="cadastroForm">
+                        <div class="form-group">
+                            <label for="nomeCompleto">Nome Completo *</label>
+                            <input type="text" id="nomeCompleto" name="nomeCompleto" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefone">Telefone *</label>
+                            <input type="tel" id="telefone" name="telefone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empresa">Nome da Empresa *</label>
+                            <input type="text" id="empresa" name="empresa" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="segmento">Segmento da Empresa *</label>
+                            <select id="segmento" name="segmento" required>
+                                <option value="">Selecione o segmento</option>
+                                <option value="moda">Moda e Vestuário</option>
+                                <option value="supermercado">Supermercado</option>
+                                <option value="farmacia">Farmácia</option>
+                                <option value="eletronicos">Eletrônicos</option>
+                                <option value="livraria">Livraria</option>
+                                <option value="casa-construcao">Casa e Construção</option>
+                                <option value="esportes">Esportes</option>
+                                <option value="beleza">Beleza e Cosméticos</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="senha">Senha *</label>
+                            <div class="password-field">
+                                <input type="password" id="senha" name="senha" required minlength="6">
+                                <button type="button" class="password-toggle" data-target="senha">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmarSenha">Confirmar Senha *</label>
+                            <div class="password-field">
+                                <input type="password" id="confirmarSenha" name="confirmarSenha" required minlength="6">
+                                <button type="button" class="password-toggle" data-target="confirmarSenha">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-user-plus"></i>
+                            Criar Conta
+                        </button>
+                    </form>
+                    
+                    <div class="login-link">
+                        Já tem uma conta? <a href="#" onclick="showLoginMessage()">Faça login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Demonstração do App -->
+    <div id="app-demo" class="page-section">
+        <div class="app-demo-page">
+            <div class="phone-container">
+                <div class="phone-screen">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div class="status-left">
+                            <span>9:41</span>
+                        </div>
+                        <div class="status-right">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-three-quarters"></i>
+                        </div>
+                    </div>
+
+                    <!-- App Header -->
+                    <div class="app-header">
+                        <div class="app-logo">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="app-title">QRInfo</div>
+                        <div class="app-subtitle">Informações na palma da mão</div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="main-content">
+                        <!-- Welcome Section -->
+                        <div class="welcome-section">
+                            <div class="welcome-title">Bem-vindo ao QRInfo!</div>
+                            <div class="welcome-text">Escaneie QR codes e acesse informações detalhadas de produtos instantaneamente</div>
+                        </div>
+
+                        <!-- Scanner Section -->
+                        <div class="scanner-section">
+                            <div class="scanner-icon pulse">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <div class="scanner-title">Escanear QR Code</div>
+                            <div class="scanner-text">Aponte a câmera para o QR code do produto e descubra todas as informações</div>
+                            <button class="scan-button" onclick="startScanner()">
+                                <i class="fas fa-camera"></i>
+                                Iniciar Scanner
+                            </button>
+                        </div>
+
+                        <!-- Features Grid -->
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div class="feature-title">Informações</div>
+                                <div class="feature-text">Detalhes completos do produto</div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="feature-title">Disponibilidade</div>
+                                <div class="feature-text">Estoque em tempo real</div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div class="feature-title">Variações</div>
+                                <div class="feature-text">Cores e tamanhos</div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-headset"></i>
+                                </div>
+                                <div class="feature-title">Suporte</div>
+                                <div class="feature-text">Atendimento rápido</div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Scans -->
+                        <div class="recent-section">
+                            <div class="section-title">
+                                <i class="fas fa-history"></i>
+                                Escaneados Recentemente
+                            </div>
+                            <div class="recent-item">
+                                <div class="recent-icon">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                                <div class="recent-content">
+                                    <div class="recent-title">Camiseta Premium</div>
+                                    <div class="recent-time">Há 2 horas</div>
+                                </div>
+                            </div>
+                            <div class="recent-item">
+                                <div class="recent-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="recent-content">
+                                    <div class="recent-title">Smartphone Galaxy</div>
+                                    <div class="recent-time">Ontem</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Navigation -->
+                    <div class="bottom-nav">
+                        <a href="#" class="nav-item active">
+                            <i class="fas fa-home"></i>
+                            <span>Início</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <i class="fas fa-qrcode"></i>
+                            <span>Scanner</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <i class="fas fa-history"></i>
+                            <span>Histórico</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <i class="fas fa-user"></i>
+                            <span>Perfil</span>
+                        </a>
+                    </div>
+
+                    <!-- Home Indicator -->
+                    <div class="home-indicator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Contato -->
+    <div id="contato" class="page-section">
+        <div class="page-header">
+            <h1><i class="fas fa-envelope"></i> Contato</h1>
+            <p>Entre em contato conosco</p>
+        </div>
+        <section>
+            <div class="container">
+                <div style="text-align: center; padding: 3rem 0;">
+                    <div style="max-width: 600px; margin: 0 auto;">
+                        <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                            <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Fale Conosco</h3>
+                            <div style="display: grid; gap: 1.5rem; text-align: left;">
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="width: 50px; height: 50px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <strong>E-mail</strong><br>
+                                        <span style="color: var(--gray-600);">contato@qrinfo.com.br</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="width: 50px; height: 50px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Telefone</strong><br>
+                                        <span style="color: var(--gray-600);">(11) 9999-9999</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <div style="width: 50px; height: 50px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Website</strong><br>
+                                        <span style="color: var(--gray-600);">www.qrinfo.com.br</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                                <a href="#" class="btn-primary nav-link" data-page="cadastro" style="display: inline-block; text-decoration: none;">
+                                    <i class="fas fa-user-plus"></i>
+                                    Cadastre-se Agora
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Sistema de navegação SPA
+        function showPage(pageId) {
+            // Esconder todas as páginas
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostrar a página selecionada
+            document.getElementById(pageId).classList.add('active');
+            
+            // Atualizar navegação ativa
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.querySelectorAll(`[data-page="${pageId}"]`).forEach(link => {
+                link.classList.add('active');
+            });
+            
+            // Mostrar/esconder botão de voltar
+            const backButton = document.getElementById('backButton');
+            if (pageId === 'home') {
+                backButton.style.display = 'none';
+            } else {
+                backButton.style.display = 'block';
+            }
+            
+            // Scroll para o topo
+            window.scrollTo(0, 0);
+        }
+        
+        // Event listeners para navegação
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navegação por links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    if (pageId) {
+                        showPage(pageId);
+                    }
+                });
+            });
+            
+            // Formulário de cadastro
+            const form = document.getElementById('cadastroForm');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            // Toggle de senha
+            document.querySelectorAll('.password-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const targetId = this.dataset.target;
+                    const passwordField = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
+                    
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        passwordField.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+            
+            // Máscara para telefone
+            document.getElementById('telefone').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length <= 11) {
+                    value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                    if (value.length < 14) {
+                        value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+                    }
+                }
+                e.target.value = value;
+            });
+            
+            // Validação e envio do formulário
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Esconder mensagens anteriores
+                successMessage.style.display = 'none';
+                errorMessage.style.display = 'none';
+                
+                // Validar campos
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                
+                // Validações básicas
+                if (!data.nomeCompleto || !data.email || !data.telefone || !data.empresa || !data.segmento || !data.senha || !data.confirmarSenha) {
+                    showError('Todos os campos são obrigatórios.');
+                    return;
+                }
+                
+                if (data.senha !== data.confirmarSenha) {
+                    showError('As senhas não coincidem.');
+                    return;
+                }
+                
+                if (data.senha.length < 6) {
+                    showError('A senha deve ter pelo menos 6 caracteres.');
+                    return;
+                }
+                
+                // Validar email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(data.email)) {
+                    showError('Por favor, insira um e-mail válido.');
+                    return;
+                }
+                
+                // Simular envio
+                simulateSubmit(data);
+            });
+            
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            function showSuccess() {
+                successMessage.style.display = 'block';
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                form.reset();
+            }
+            
+            function simulateSubmit(data) {
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+                
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cadastrando...';
+                submitButton.disabled = true;
+                
+                setTimeout(() => {
+                    // Simular sucesso (90% das vezes)
+                    if (Math.random() > 0.1) {
+                        showSuccess();
+                        console.log('Dados do cadastro:', data);
+                        
+                        // Voltar para home após 3 segundos
+                        setTimeout(() => {
+                            showPage('home');
+                        }, 3000);
+                    } else {
+                        showError('Erro no servidor. Tente novamente em alguns instantes.');
+                    }
+                    
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                }, 2000);
+            }
+        });
+        
+        // Funções do aplicativo
+        function startScanner() {
+            const button = document.querySelector('.scan-button');
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Abrindo câmera...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                alert('Scanner de QR Code seria aberto aqui!\n\nEm um app real, isso abriria a câmera para escanear códigos QR.');
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+        
+        function showLoginMessage() {
+            alert('Funcionalidade de login será implementada em breve!');
+        }
+        
+        // Simular navegação do app
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.nav-item') && e.target.closest('.bottom-nav')) {
+                e.preventDefault();
+                
+                // Remove active class from all items
+                document.querySelectorAll('.bottom-nav .nav-item').forEach(nav => nav.classList.remove('active'));
+                
+                // Add active class to clicked item
+                e.target.closest('.nav-item').classList.add('active');
+                
+                // Simular mudança de tela
+                const section = e.target.closest('.nav-item').querySelector('span').textContent;
+                if (section !== 'Início') {
+                    alert(`Navegando para: ${section}\n\nEm um app real, isso mudaria a tela.`);
+                }
+            }
+            
+            // Simular clique nos itens recentes
+            if (e.target.closest('.recent-item')) {
+                const productName = e.target.closest('.recent-item').querySelector('.recent-title').textContent;
+                alert(`Abrindo detalhes do produto: ${productName}\n\nEm um app real, isso mostraria as informações completas do produto.`);
+            }
+            
+            // Simular clique nas features
+            if (e.target.closest('.feature-card')) {
+                const featureName = e.target.closest('.feature-card').querySelector('.feature-title').textContent;
+                alert(`Funcionalidade: ${featureName}\n\nEm um app real, isso abriria a seção correspondente.`);
+            }
+        });
+    </script>
+</body>
+</html>
+

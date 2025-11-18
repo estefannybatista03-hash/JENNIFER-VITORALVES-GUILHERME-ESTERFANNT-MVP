@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRInfo - Dashboard Empresa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f6fa;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 20px;
+            width: calc(100% - 280px);
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 1.8rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .products-table th,
+        .products-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .products-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .product-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-qr {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .qr-display {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .qr-code {
+            margin: 20px auto;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">
+                    <i class="fas fa-qrcode"></i> QRInfo
+                </h2>
+                <p class="sidebar-subtitle">Dashboard Empresa</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" onclick="showSection('dashboard')"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
+                <li><a href="#" onclick="showSection('produtos')"><i class="fas fa-box"></i> Produtos</a></li>
+                <li><a href="#" onclick="showSection('qrcodes')"><i class="fas fa-qrcode"></i> QR Codes</a></li>
+                <li><a href="#" onclick="showSection('relatorios')"><i class="fas fa-chart-line"></i> Relatórios</a></li>
+                <li><a href="#" onclick="showSection('configuracoes')"><i class="fas fa-cog"></i> Configurações</a></li>
+                <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h1 class="header-title">Bem-vindo ao Dashboard</h1>
+                <div class="user-info">
+                    <div class="user-avatar">E</div>
+                    <div>
+                        <div style="font-weight: 600;">Empresa Demo</div>
+                        <div style="font-size: 0.9rem; color: #666;">Administrador</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: #4CAF50;">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-number" style="color: #4CAF50;">24</div>
+                        <div class="stat-label">Produtos Cadastrados</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: #2196F3;">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="stat-number" style="color: #2196F3;">24</div>
+                        <div class="stat-label">QR Codes Gerados</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: #FF9800;">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-number" style="color: #FF9800;">1,247</div>
+                        <div class="stat-label">Visualizações</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="color: #9C27B0;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number" style="color: #9C27B0;">89</div>
+                        <div class="stat-label">Clientes Únicos</div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3 class="section-title">Produtos Mais Visualizados</h3>
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Visualizações</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Camiseta Premium</td>
+                                <td>Vestuário</td>
+                                <td>342</td>
+                                <td><span class="status-badge status-active">Ativo</span></td>
+                            </tr>
+                            <tr>
+                                <td>Tênis Esportivo</td>
+                                <td>Calçados</td>
+                                <td>298</td>
+                                <td><span class="status-badge status-active">Ativo</span></td>
+                            </tr>
+                            <tr>
+                                <td>Jaqueta Jeans</td>
+                                <td>Vestuário</td>
+                                <td>187</td>
+                                <td><span class="status-badge status-inactive">Inativo</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Produtos Section -->
+            <div id="produtos-section" class="section" style="display: none;">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Gerenciar Produtos</h3>
+                        <button class="btn-primary" onclick="openModal('addProductModal')">
+                            <i class="fas fa-plus"></i> Adicionar Produto
+                        </button>
+                    </div>
+                    
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Estoque</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <tr>
+                                <td><div style="width: 50px; height: 50px; background: #4CAF50; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">C</div></td>
+                                <td>Camiseta Premium</td>
+                                <td>Vestuário</td>
+                                <td>R$ 89,90</td>
+                                <td>25</td>
+                                <td><span class="status-badge status-active">Ativo</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-small btn-edit" onclick="editProduct(1)"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-small btn-qr" onclick="generateQR(1)"><i class="fas fa-qrcode"></i></button>
+                                        <button class="btn-small btn-delete" onclick="deleteProduct(1)"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- QR Codes Section -->
+            <div id="qrcodes-section" class="section" style="display: none;">
+                <div class="content-section">
+                    <h3 class="section-title">QR Codes Gerados</h3>
+                    <p>Aqui você pode visualizar e gerenciar todos os QR codes gerados para seus produtos.</p>
+                </div>
+            </div>
+
+            <!-- Relatórios Section -->
+            <div id="relatorios-section" class="section" style="display: none;">
+                <div class="content-section">
+                    <h3 class="section-title">Relatórios</h3>
+                    <p>Visualize relatórios detalhados sobre o desempenho dos seus produtos.</p>
+                </div>
+            </div>
+
+            <!-- Configurações Section -->
+            <div id="configuracoes-section" class="section" style="display: none;">
+                <div class="content-section">
+                    <h3 class="section-title">Configurações</h3>
+                    <p>Gerencie as configurações da sua empresa e conta.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Produto -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Adicionar Novo Produto</h3>
+                <button class="close-modal" onclick="closeModal('addProductModal')">&times;</button>
+            </div>
+            
+            <form id="addProductForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="productName">Nome do Produto *</label>
+                        <input type="text" id="productName" name="productName" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="productCategory">Categoria *</label>
+                        <select id="productCategory" name="productCategory" class="form-select" required>
+                            <option value="">Selecione a categoria</option>
+                            <option value="vestuario">Vestuário</option>
+                            <option value="calcados">Calçados</option>
+                            <option value="acessorios">Acessórios</option>
+                            <option value="eletronicos">Eletrônicos</option>
+                            <option value="casa">Casa e Decoração</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="productDescription">Descrição *</label>
+                    <textarea id="productDescription" name="productDescription" class="form-textarea" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="productPrice">Preço (R$) *</label>
+                        <input type="number" id="productPrice" name="productPrice" class="form-input" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="productStock">Estoque *</label>
+                        <input type="number" id="productStock" name="productStock" class="form-input" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="productDetails">Detalhes Adicionais</label>
+                    <textarea id="productDetails" name="productDetails" class="form-textarea" placeholder="Cores, tamanhos, materiais, etc."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-plus"></i> Adicionar Produto
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal QR Code -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">QR Code do Produto</h3>
+                <button class="close-modal" onclick="closeModal('qrModal')">&times;</button>
+            </div>
+            
+            <div class="qr-display">
+                <div id="qrcode" class="qr-code"></div>
+                <p>Escaneie este QR code para ver as informações do produto</p>
+                <button class="btn-primary" onclick="downloadQR()">
+                    <i class="fas fa-download"></i> Baixar QR Code
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navegação entre seções
+        function showSection(sectionName) {
+            // Esconder todas as seções
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Mostrar a seção selecionada
+            document.getElementById(sectionName + '-section').style.display = 'block';
+            
+            // Atualizar menu ativo
+            const menuItems = document.querySelectorAll('.sidebar-menu a');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Modais
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Fechar modal clicando fora
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Adicionar produto
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const productData = {
+                name: formData.get('productName'),
+                category: formData.get('productCategory'),
+                description: formData.get('productDescription'),
+                price: formData.get('productPrice'),
+                stock: formData.get('productStock'),
+                details: formData.get('productDetails')
+            };
+            
+            // Simular adição do produto
+            addProductToTable(productData);
+            
+            // Fechar modal e limpar formulário
+            closeModal('addProductModal');
+            this.reset();
+            
+            alert('Produto adicionado com sucesso!');
+        });
+
+        // Adicionar produto à tabela
+        function addProductToTable(product) {
+            const tbody = document.getElementById('productsTableBody');
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td><div style="width: 50px; height: 50px; background: #4CAF50; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">${product.name.charAt(0)}</div></td>
+                <td>${product.name}</td>
+                <td>${product.category}</td>
+                <td>R$ ${parseFloat(product.price).toFixed(2)}</td>
+                <td>${product.stock}</td>
+                <td><span class="status-badge status-active">Ativo</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn-small btn-edit" onclick="editProduct(${Date.now()})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-small btn-qr" onclick="generateQR('${product.name}')"><i class="fas fa-qrcode"></i></button>
+                        <button class="btn-small btn-delete" onclick="deleteProduct(${Date.now()})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </td>
+            `;
+            
+            tbody.appendChild(row);
+        }
+
+        // Gerar QR Code
+        function generateQR(productName) {
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = '';
+            
+            const qr = new QRCode(qrContainer, {
+                text: `https://qrinfo.com.br/produto/${productName}`,
+                width: 200,
+                height: 200,
+                colorDark: "#000000",
+                colorLight: "#ffffff"
+            });
+            
+            openModal('qrModal');
+        }
+
+        // Editar produto
+        function editProduct(id) {
+            alert('Funcionalidade de edição será implementada em breve!');
+        }
+
+        // Deletar produto
+        function deleteProduct(id) {
+            if (confirm('Tem certeza que deseja deletar este produto?')) {
+                alert('Produto deletado com sucesso!');
+                // Aqui você removeria a linha da tabela
+            }
+        }
+
+        // Download QR Code
+        function downloadQR() {
+            const canvas = document.querySelector('#qrcode canvas');
+            if (canvas) {
+                const link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            }
+        }
+    </script>
+</body>
+</html>
+
